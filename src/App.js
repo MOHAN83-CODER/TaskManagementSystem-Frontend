@@ -40,20 +40,19 @@ function App() {
     ? 0
     : Math.round((completedTasks / totalTasks) * 100);
   
-  useEffect(() => {
+ useEffect(() => {
   if (currentUser) {
     loadTasks();
   }
-}, [currentUser]);
+}, [currentUser, loadTasks]);
 
 
   // Load Tasks
-  const loadTasks = () => {
+  const loadTasks = React.useCallback(() => {
 
   if (!currentUser) return;
 
-  axios
-    .get(`http://localhost:8080/api/tasks/${currentUser.id}`)
+ axios.get(`${process.env.REACT_APP_API_URL}/api/tasks/${currentUser.id}`)
     .then((response) => {
 
   setTasks(response.data);
@@ -74,7 +73,7 @@ function App() {
       console.error(error);
     });
 
-};
+}, [currentUser]);
 
   // Add Task
   const addTask = () => {
@@ -95,7 +94,7 @@ function App() {
 };
 
     axios
-      .post("http://localhost:8080/api/tasks", newTask)
+      .post(`${process.env.REACT_APP_API_URL}/api/tasks`, newTask)
       .then(() => {
         toast.success("Task Added Successfully!");
 
@@ -137,7 +136,7 @@ function App() {
 };
 
     axios
-      .put(`http://localhost:8080/api/tasks/${editingId}`, updatedTask)
+      .put(`${process.env.REACT_APP_API_URL}/api/tasks/${editingId}`, updatedTask)
       .then(() => {
 
         toast.success("Task Updated!");
@@ -163,7 +162,7 @@ function App() {
     if (!window.confirm("Delete this task?")) return;
 
     axios
-      .delete(`http://localhost:8080/api/tasks/${id}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/tasks/${id}`)
       .then(() => {
         toast.success("Task Deleted!");
         loadTasks();
@@ -173,11 +172,11 @@ function App() {
         console.error(error);
       });
   };
-  useEffect(() => {
+ useEffect(() => {
   if (currentUser) {
     loadTasks();
   }
-}, [currentUser]);
+}, [currentUser, loadTasks]);
 const loginSuccess = (user) => {
   setCurrentUser(user);
 };
