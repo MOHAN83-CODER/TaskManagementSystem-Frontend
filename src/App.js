@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -40,15 +40,11 @@ function App() {
     ? 0
     : Math.round((completedTasks / totalTasks) * 100);
   
- useEffect(() => {
-  if (currentUser) {
-    loadTasks();
-  }
-}, [currentUser, loadTasks]);
+
 
 
   // Load Tasks
-  const loadTasks = React.useCallback(() => {
+ const loadTasks = useCallback(() => {
 
   if (!currentUser) return;
 
@@ -74,6 +70,11 @@ function App() {
     });
 
 }, [currentUser]);
+ useEffect(() => {
+  if (currentUser) {
+    loadTasks();
+  }
+}, [currentUser, loadTasks]);
 
   // Add Task
   const addTask = () => {
