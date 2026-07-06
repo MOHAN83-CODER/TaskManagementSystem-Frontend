@@ -11,7 +11,7 @@ function Signup({ openLogin }) {
   const registerUser = () => {
 
     axios
-      .post("http://localhost:8080/api/users/register", {
+      .post("https://taskmanagementsystem-backend-production.up.railway.app/api/users/register", {
         name,
         email,
         password
