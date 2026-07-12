@@ -2,20 +2,29 @@ import { useState } from "react";
 import axios from "axios";
 
 function ForgotPassword({ openLogin }) {
+
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   const resetPassword = () => {
+
+    console.log("Email:", email);
+    console.log("New Password:", newPassword);
+
     axios
-      .post("http://localhost:8080/api/users/forgot-password", {
-        email,
-        password: newPassword,
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/users/forgot-password`,
+        {
+          email,
+          password: newPassword,
+        }
+      )
       .then(() => {
         alert("Password Updated Successfully!");
         openLogin();
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         alert("Email not found!");
       });
   };
