@@ -538,7 +538,7 @@ if (!currentUser) {
         <thead>
 
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
@@ -611,7 +611,7 @@ if (!currentUser) {
                   className={overdue ? "overdue" : ""}
                 >
 
-                  <td>{task.id}</td>
+                  {/* <td>{task.id}</td> */}
 
                   <td>{task.title}</td>
 
